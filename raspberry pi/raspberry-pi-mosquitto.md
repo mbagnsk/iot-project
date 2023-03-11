@@ -1,18 +1,22 @@
 # Raspberry Pi Mosquitto
 
 Mosquitto installation:
-	1. sudo apt install mosquitto -y
+  - sudo apt install mosquitto -y
+
 or
-	1. wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
-	2. sudo apt-key add mosquitto-repo.gpg.key
+
+  - wget http://repo.mosquitto.org/debian/mosquitto-repo.gpg.key
+  - sudo apt-key add mosquitto-repo.gpg.key
 	
 Mosquitto configuration file: mosquitto.conf which is located in /etc/mosquitto
-	1. cd /etc/mosquitto/
-	2. cat mosquitto.conf
+  1. cd /etc/mosquitto/
+  2. cat mosquitto.conf
 	
-Mosquitto start: sudo systemctl start mosquitto.service
-Mosquitto stop: sudo systemctl stop mosquitto.service
-Mosquitto restart: sudo systemctl restart mosquitto.service
+Mosquitto start: sudo systemctl start mosquitto.service 
+
+Mosquitto stop: sudo systemctl stop mosquitto.service 
+
+Mosquitto restart: sudo systemctl restart mosquitto.service 
 
 Subscribe test topic on localhost: mosquitto_sub -h localhost -t test -d
 Publish example message on test topic on localhost: mosquitto_pub -h localhost -t test -m message
