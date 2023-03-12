@@ -41,6 +41,7 @@ JSON data format used when errors occured:
 			"iotHub": ...
 		}
 		"error": {
+			"code": ...,
 			"value": ...,
 			"datetime": ...
 		}
