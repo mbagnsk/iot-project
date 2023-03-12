@@ -26,6 +26,10 @@ Sources:
 2. https://blog-techniczny.pl/2021/01/02/instalacja-i-konfiguracja-mosquitto-na-raspberry-pi/
 3. https://www.instructables.com/Installing-MQTT-BrokerMosquitto-on-Raspberry-Pi/
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
 4. https://www.devpower.pl/broker-mosquitto-mqtt-na-raspberry-pi/
 >>>>>>> d09db48 (added source with ssh connection information)
+=======
+4. https://www.devpower.pl/broker-mosquitto-mqtt-na-raspberry-pi/
+>>>>>>> 33d2bb50ee38ed537a74a797797bb51f4fd9153c
