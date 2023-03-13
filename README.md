@@ -74,6 +74,22 @@ example: measurements/temperature/1/1
 * topic for errors
 Subscriber(Raspberry Pi) of the topic gets all information that publicated. 
 
+## ESP8266
+
+ESP8266 modul: ESP8266 NodeMcu V3 CH340
+
+Ardiono IDE settings:
+  - Board: NodeMCU 1.0 (ESP-12E Module),
+  - Upload Speed - 115200,
+  - CPU Frequency: 80MHz.
+
+Libraries:
+  - String,
+  - PubSubClient - https://github.com/Imroy/pubsubclient,
+  - ArduinoJson - https://arduinojson.org/,
+  - ESP8266WiFi - http://arduino.esp8266.com/stable/package_esp8266com_index.json - need to be added: FIle -> Preferences -> Additional URL...
+  - ESPDateTime.
+
 ## Store data
 
 Subscriber program would subscribe topic:
