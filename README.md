@@ -23,6 +23,7 @@ Used JSON data format:
 			"iotHub": ...
 		}
 		"measurement": {
+			"idMeasurement": ...,
 			"value": ...,
 			"measurementType": ...,
 			"datetime": ...
