@@ -72,4 +72,19 @@ topic: message_type/acction_type/id_device/id_channel
 example: measurements/temperature/1/1
 ```
 
+* topic for errors
 Subscriber(Raspberry Pi) of the topic gets all information that publicated. 
+
+## Store data
+
+Subscriber program would subscribe topic:
+
+```
+measurements/temperature/#
+```
+
+That allows to get all informations from all devices that publish data on topic that begins: 
+```
+measurements/temperature/*
+```
+* topic for errors
