@@ -1,7 +1,7 @@
 # iot-project
 
-Goal of the project is to comunicate some IoT devices as: ESP32 and Raspberry PI via MQTT comunication protocol.
-Some of ESP32s would work as sensors that measure weather conditions or other type of data then send that information to MQTT broker that would be installed on Raspberry Pi.
+Goal of the project is to comunicate some IoT devices as: ESP8266 and Raspberry PI via MQTT comunication protocol.
+Some of ESP8266s would work as sensors that measure weather conditions or other type of data then send that information to MQTT broker that would be installed on Raspberry Pi.
 Moreover it's plan to install data base on Raspberry Pi and store there sent data.
 Stored data would be used to generate raports or online visualization.
 
@@ -20,13 +20,13 @@ Used JSON data format:
 		"device": {
 			"idDevice": ...,
 			"idChannel": ...,
-			"iotHub": ...
+			"idIoTHub": ...
 		}
 		"measurement": {
 			"idMeasurement": ...,
 			"value": ...,
 			"measurementType": ...,
-			"datetime": ...
+			"dateTime": ...
 		}
 	}
 }
@@ -39,12 +39,12 @@ JSON data format used when errors occured:
 		"device": {
 			"idDevice": ...,
 			"idChannel": ...,
-			"iotHub": ...
+			"idIoTHub": ...
 		}
 		"error": {
 			"code": ...,
 			"value": ...,
-			"datetime": ...
+			"dateTime": ...
 		}
 	}
 }
