@@ -23,7 +23,6 @@ Used JSON data format:
 			"idIoTHub": ...
 		}
 		"measurement": {
-			"idMeasurement": ...,
 			"value": ...,
 			"measurementType": ...,
 			"dateTime": ...
@@ -68,7 +67,7 @@ Every message should be assigned to proper topic that defines some informations 
 Example topic body:
 
 ```
-topic: message_type/acction_type/id_device/id_channel
+topic: message_type/action_type/id_device/id_channel
 example: measurements/temperature/1/1
 ```
 
