@@ -6,10 +6,9 @@ Moreover it's plan to install data base on Raspberry Pi and store there sent dat
 Stored data would be used to generate raports or online visualization.
 
 TO DO:
-  - json structure,
-  - topics,
   - publish and subscribe infrastucture,
   - visualization
+  - storing data,
   - ...
 
 ## JSON
@@ -67,12 +66,46 @@ Every message should be assigned to proper topic that defines some informations 
 Example topic body:
 
 ```
-topic: message_type/action_type/id_device/id_channel
-example: measurements/temperature/1/1
+topic: id_iothub/message_type/action_type/id_device/id_channel
+example: 1/measurements/temperature/1/1
 ```
 
 * topic for errors
-Subscriber(Raspberry Pi) of the topic gets all information that publicated. 
+Subscriber(Raspberry Pi) of the topic gets all information that publicated on specified topic. 
+
+## Raspberry Pi
+
+On Raspberry Pi installed Raspberry Pi OS - linux distribution dedicated for Raspberry devices - and Mosquitto.
+
+Created cfg.conf file in specified for config files location.
+
+```
+/etc/mosquitto/conf.d 
+```
+
+Cfg.conf contains special options and instructions for broker session.
+Defined instructions:
+
+```
+allow_anonymous true
+listener 1884
+```
+
+By default Mosquitto runs automaticlly after Raspberry Pi system start.
+It's nessesery to use instructions below to run new broker process with specified configuration:
+
+```
+sudo systemctl disable mosquitto.service
+sudo systemctl stop mosquitto.service
+mosquitto -c /etc/mosquitto/conf.d/cfg.conf -p 1884
+``` 
+
+Runs below commend result is device IP in local network.
+It may indicate the broker address:
+
+```
+hostname -I
+```
 
 ## ESP8266
 
@@ -85,7 +118,7 @@ Ardiono IDE settings:
 
 Libraries:
   - String,
-  - PubSubClient - https://github.com/Imroy/pubsubclient,
+  - ArduinoMqttClient,
   - ArduinoJson - https://arduinojson.org/,
   - ESP8266WiFi - http://arduino.esp8266.com/stable/package_esp8266com_index.json - need to be added: FIle -> Preferences -> Additional URL...
   - ESPDateTime.
@@ -95,11 +128,11 @@ Libraries:
 Subscriber program would subscribe topic:
 
 ```
-measurements/temperature/#
++/measurements/temperature/#
 ```
 
 That allows to get all informations from all devices that publish data on topic that begins: 
 ```
-measurements/temperature/*
+*/measurements/temperature/*
 ```
 * topic for errors
