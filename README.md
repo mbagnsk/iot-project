@@ -107,6 +107,21 @@ It may indicate the broker address:
 hostname -I
 ```
 
+### SQLite3
+
+Selected a SQLite as a data base engine for project. Data base is installed on Raspberry PI:
+Data base name is:
+
+```
+measurementsDB
+```
+
+and it's stored into:
+
+```
+/home/mibagi/measurementsDB.db 
+```
+
 ## ESP8266
 
 ESP8266 modul: ESP8266 NodeMcu V3 CH340
