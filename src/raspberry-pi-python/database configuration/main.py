@@ -43,9 +43,9 @@ def main():
                                 device TEXT NOT NULL, 
                                 description TEXT);"""
     _create_temperature_table = """CREATE TABLE IF NOT EXISTS temperature(
-                                iotHub INTEGER, 
-                                idDevice INTEGER, 
-                                idChannel INTEGER, 
+                                iotHub INTEGER NOT NULL, 
+                                idDevice INTEGER NOT NULL, 
+                                idChannel INTEGER NOT NULL, 
                                 value REAL NOT NULL, 
                                 datetime TEXT NOT NULL, 
                                 FOREIGN KEY(iotHub) REFERENCES iotHubs(idIotHub), 
