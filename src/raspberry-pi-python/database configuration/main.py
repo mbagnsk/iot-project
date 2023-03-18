@@ -21,11 +21,23 @@ def create_table(conn, create_table_sql):
     """ create a table from create_table_sql statement
     :param conn: Connection object
     :param create_table_sql: CREATE TABLE sql statement
-    :return:
     """
     try:
         cr = conn.cursor()
         cr.execute(create_table_sql)
+    except Error as e:
+        print(e)
+
+
+def insert_data(conn, insert_statement):
+    """ insert data indicated in insert_statement
+    :param conn: Connection object
+    :param insert_statement: INSERT INTO sql statement
+    """
+    try:
+        cr = conn.cursor()
+        cr.execute(insert_statement)
+        conn.commit()
     except Error as e:
         print(e)
 
@@ -51,6 +63,9 @@ def main():
                                 FOREIGN KEY(iotHub) REFERENCES iotHubs(idIotHub), 
                                 FOREIGN KEY(idDevice) REFERENCES devices(idDevice), 
                                 PRIMARY KEY (iotHub, idDevice, idChannel))"""
+    _insert_measurementtype_init = """INSERT INTO measurementsType (measurementType) VALUES('temperature')"""
+    _insert_iothub_init = """INSERT INTO iotHubs (iotHub) VALUES ('Raspberry Pi 3B')"""
+    _insert_devices_init = """INSERT INTO devices (device) VALUES ('ESP8266')"""
 
     conn = create_connection(database)
     if conn is not None:
@@ -58,6 +73,9 @@ def main():
         create_table(conn, _create_iothubs_table)
         create_table(conn, _create_devices_table)
         create_table(conn, _create_temperature_table)
+        insert_data(conn, _insert_measurementtype_init)
+        insert_data(conn, _insert_iothub_init)
+        insert_data(conn, _insert_devices_init)
     else:
         print("Error, cannot connect to database.")
 
