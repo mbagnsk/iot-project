@@ -5,47 +5,52 @@
 #include <ArduinoJson.h>
 #include <String.h>
 
-const char* ssid = "Orange_Swiatlowod_E300"; 
-const char* password = "kilocebuli";
+const char* ssid = "*"; 
+const char* password = "*";
  
-const char brokerAddress[] = "192.168.1.54";
+const char brokerAddress[] = "*";
 const int mqttPort = 1884;
 
-const String _message = "message";
-const String _device = "device";
-const String _idDevice = "idDevice";
-const String _idChannel = "idChannel";
-const String _idIoTHub = "idIoTHub";
-const String _measurement = "measurement";
-const String _idMeasurement = "idMeasurement";
-const String _value = "value";
-const String _measurementType = "measurementType";
-const String _dateTime = "dateTime";
+const String _messageXML = "message";
+const String _deviceXML = "device";
+const String _idDeviceXML = "idDevice";
+const String _idChannelXML = "idChannel";
+const String _idIoTHubXML = "idIoTHub";
+const String _measurementXML = "measurement";
+const String _idMeasurementXML = "idMeasurement";
+const String _valueXML = "value";
+const String _unitsXML = "units";
+const String _measurementTypeXML = "measurementType";
+const String _dateTimeXML = "dateTime";
 
-String idDevice = "1";
-String idChannel = "1";
-String idIoTHub = "1";
+const String _idDevice = "1";
+const String _idChannel = "1";
+const String _idIoTHub = "1";
+const String _temperatureMeasurementType = "1";
+const String _celsius = "1";
 
 WiFiClient wifiClient;
 MqttClient mqttClient(wifiClient);
 int status = WL_IDLE_STATUS;
 
 struct Measurement {
-  char* value;
-  char* measurementType;
-  char* datetime;
+  String value;
+  String units; 
+  String measurementType;
+  String datetime;
 };
 
 String createMessage(String idDevice, String idChannel, String idIoTHub, Measurement measurement){
-  StaticJsonDocument<256> doc;
+  StaticJsonDocument<512> doc;
   String JSONmessageBuffer;
-  JsonObject message = doc.createNestedObject(_message);
-  message[_device][_idDevice] = idDevice;
-  message[_device][_idChannel] = idChannel;
-  message[_device][_idIoTHub] = idIoTHub;
-  message[_measurement][_value] = measurement.value;
-  message[_measurement][_measurementType] = measurement.measurementType;
-  message[_measurement][_dateTime] = measurement.datetime;
+  JsonObject message = doc.createNestedObject(_messageXML);
+  message[_deviceXML][_idDeviceXML] = idDevice;
+  message[_deviceXML][_idChannelXML] = idChannel;
+  message[_deviceXML][_idIoTHubXML] = idIoTHub;
+  message[_measurementXML][_valueXML] = measurement.value;
+  message[_measurementXML][_unitsXML] = measurement.units;
+  message[_measurementXML][_measurementTypeXML] = measurement.measurementType;
+  message[_measurementXML][_dateTimeXML] = measurement.datetime;
   int JSONmessageSize = serializeJson(doc, JSONmessageBuffer);
   return JSONmessageBuffer;
 }
@@ -73,15 +78,21 @@ void setup() {
     while (1);
   }
   Serial.println("You're connected to the MQTT broker!");
-  Serial.println();
+}
+
+String getTemperature(){
+  int temperature = random(15, 25);
+  return String(temperature);
 }
 
 void loop() {
-  Measurement measurement;
-  measurement.value = "1";
-  measurement.measurementType = "2";
-  measurement.datetime = "2023-03-13";
-  String message = createMessage(idDevice, idChannel, idIoTHub, measurement); 
-  mqttPostTemperature(idIoTHub, idDevice, idChannel, message);
+  Measurement temperatureMeasurement;
+  temperatureMeasurement.value = getTemperature();
+  temperatureMeasurement.units = _celsius;
+  temperatureMeasurement.measurementType = _temperatureMeasurementType;
+  temperatureMeasurement.datetime = DateTime.formatUTC("%Y-%m-%d %H:%M:%S");
+  Serial.println(temperatureMeasurement.datetime);
+  mqttPostTemperature(_idIoTHub, _idDevice, _idChannel, message);
+  Serial.println(message);
   delay(5000);
 }

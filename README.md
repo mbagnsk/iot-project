@@ -23,6 +23,7 @@ Used JSON data format:
 		}
 		"measurement": {
 			"value": ...,
+			"units": ...,
 			"measurementType": ...,
 			"dateTime": ...
 		}
