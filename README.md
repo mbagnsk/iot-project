@@ -124,7 +124,7 @@ and it's stored into:
 
 Database structure:
 
-![image](https://user-images.githubusercontent.com/56918406/226171906-da032689-6444-4e9c-bafc-7d9337994aa3.png)
+![image](https://user-images.githubusercontent.com/56918406/226174441-f167ee10-1419-40db-ad9c-8d80be3e0a72.png)
 
 
 ## ESP8266
