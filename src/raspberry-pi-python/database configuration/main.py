@@ -54,15 +54,17 @@ def main():
                                 idDevice INTEGER PRIMARY KEY AUTOINCREMENT, 
                                 device TEXT NOT NULL, 
                                 description TEXT);"""
-    _create_temperature_table = """CREATE TABLE IF NOT EXISTS temperature(
+    _create_temperatures_table = """CREATE TABLE IF NOT EXISTS temperatures(
+                                idMeasurement INTEGER PRIMARY KEY AUTOINCREMENT,
                                 idIotHub INTEGER NOT NULL, 
                                 idDevice INTEGER NOT NULL, 
                                 idChannel INTEGER NOT NULL,
                                 value REAL NOT NULL, 
-                                datetime TEXT NOT NULL, 
+                                idUnit INTEGER NOT NULL,
+                                measurementDatetime TEXT NOT NULL, 
                                 FOREIGN KEY(idIotHub) REFERENCES iotHubs(idIotHub), 
                                 FOREIGN KEY(idDevice) REFERENCES devices(idDevice), 
-                                PRIMARY KEY (idIotHub, idDevice, idChannel))"""
+                                FOREIGN KEY(idUnit) REFERENCES units(idUnit))"""
     _create_units_table = """CREATE TABLE IF NOT EXISTS units(
                             idUnit INTEGER PRIMARY KEY AUTOINCREMENT,
                             idMeasurementType INTEGER NOT NULL,
@@ -80,7 +82,7 @@ def main():
         create_table(conn, _create_measurementstype_table)
         create_table(conn, _create_iothubs_table)
         create_table(conn, _create_devices_table)
-        create_table(conn, _create_temperature_table)
+        create_table(conn, _create_temperatures_table)
         create_table(conn, _create_units_table)
         insert_data(conn, _insert_measurementtype_init)
         insert_data(conn, _insert_iothub_init)

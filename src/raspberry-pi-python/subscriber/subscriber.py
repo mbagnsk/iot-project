@@ -1,8 +1,13 @@
 import paho.mqtt.client as mqtt
 import sys
 import json
+from measurements_database_handler import add_temperature_measurement
 
 topic = sys.argv[1]
+
+measurement_type_dictionary = {
+    "temperature": "1"
+}
 
 
 def on_connect(client, userdata, flags, rc):
@@ -13,7 +18,8 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     try:
         message_received = json.loads(msg.payload)
-        print(message_received["message"]["measurement"]["measurementType"])
+        if message_received["message"]["measurement"]["measurementType"] == measurement_type_dictionary["temperature"]:
+            add_temperature_measurement(message_received)
     except ValueError:
         print("Decoding JSON has failed")
 

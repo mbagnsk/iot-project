@@ -15,11 +15,11 @@ const String _messageXML = "message";
 const String _deviceXML = "device";
 const String _idDeviceXML = "idDevice";
 const String _idChannelXML = "idChannel";
-const String _idIoTHubXML = "idIoTHub";
+const String _idIoTHubXML = "idIotHub";
 const String _measurementXML = "measurement";
 const String _idMeasurementXML = "idMeasurement";
 const String _valueXML = "value";
-const String _unitsXML = "units";
+const String _idUnitXML = "idUnit";
 const String _measurementTypeXML = "measurementType";
 const String _measurementDateTimeXML = "measurementDateTime";
 
@@ -72,7 +72,7 @@ String createMessage(String idDevice, String idChannel, String idIoTHub, Measure
   message[_deviceXML][_idChannelXML] = idChannel;
   message[_deviceXML][_idIoTHubXML] = idIoTHub;
   message[_measurementXML][_valueXML] = measurement.value;
-  message[_measurementXML][_unitsXML] = measurement.units;
+  message[_measurementXML][_idUnitXML] = measurement.units;
   message[_measurementXML][_measurementTypeXML] = measurement.measurementType;
   message[_measurementXML][_measurementDateTimeXML] = measurement.measurementDatetime;
   int JSONmessageSize = serializeJson(doc, JSONmessageBuffer);
