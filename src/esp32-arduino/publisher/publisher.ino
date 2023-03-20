@@ -5,10 +5,10 @@
 #include <ArduinoJson.h>
 #include <String.h>
 
-const char* ssid = "*"; 
-const char* password = "*";
+const char* ssid = ""; 
+const char* password = "";
  
-const char brokerAddress[] = "*";
+const char brokerAddress[] = "192.168.1.54";
 const int mqttPort = 1884;
 
 const String _messageXML = "message";
@@ -21,7 +21,7 @@ const String _idMeasurementXML = "idMeasurement";
 const String _valueXML = "value";
 const String _unitsXML = "units";
 const String _measurementTypeXML = "measurementType";
-const String _dateTimeXML = "dateTime";
+const String _measurementDateTimeXML = "measurementDateTime";
 
 const String _idDevice = "1";
 const String _idChannel = "1";
@@ -37,10 +37,34 @@ struct Measurement {
   String value;
   String units; 
   String measurementType;
-  String datetime;
+  String measurementDatetime;
 };
 
 String createMessage(String idDevice, String idChannel, String idIoTHub, Measurement measurement){
+  //  create a json message based on passed parameters
+  //  message structure:
+  // {
+  //  "message": {
+  //    "device": {
+  //      "idDevice": idDevice,
+  //      "idChannel": idChannel,
+  //      "idIoTHub": idIoTHub
+  //    }
+  //    "measurement": {
+  //      "value": measurement.value,
+  //      "units": measurement.units,
+  //      "measurementType": measurement.measurementType,
+  //      "measurementDateTime": measurement.measurementDateTime
+  //    }
+  //  }
+  // }
+  // 
+  // :param: idDevice: id of measuring device,
+  // :param: idChannel: id of device's sensor channel
+  // :param: idIoTHub: id of IoTHub that is a receivcer of message
+  // :param: measurement: structure store details about measurement
+  // :return: JSONmessageBuffer: string contains created message in json format
+  
   StaticJsonDocument<512> doc;
   String JSONmessageBuffer;
   JsonObject message = doc.createNestedObject(_messageXML);
@@ -50,14 +74,22 @@ String createMessage(String idDevice, String idChannel, String idIoTHub, Measure
   message[_measurementXML][_valueXML] = measurement.value;
   message[_measurementXML][_unitsXML] = measurement.units;
   message[_measurementXML][_measurementTypeXML] = measurement.measurementType;
-  message[_measurementXML][_dateTimeXML] = measurement.datetime;
+  message[_measurementXML][_measurementDateTimeXML] = measurement.measurementDatetime;
   int JSONmessageSize = serializeJson(doc, JSONmessageBuffer);
   return JSONmessageBuffer;
 }
 
 void mqttPostTemperature(String idIoTHub, String idDevice, String idChannel, String message){
+  // post passed message via mqtt on topic created basing on passed parameters       
+  // ex. topic = "1/measurements/temperature/1/1"
+  // :param: idDevice: id of measuring device,
+  // :param: idChannel: id of device's sensor channel
+  // :param: idIoTHub: id of IoTHub that is a receivcer of message
+
+  const String mt = "/measurements/temperature/";
+  
   char msg[1000];
-  String topic = idIoTHub + "/" + idDevice + "/" + idChannel;
+  String topic = idIoTHub + mt + idDevice + "/" + idChannel;
   message.toCharArray(msg, 1000);
   mqttClient.beginMessage(topic);
   mqttClient.print(msg);
@@ -90,9 +122,8 @@ void loop() {
   temperatureMeasurement.value = getTemperature();
   temperatureMeasurement.units = _celsius;
   temperatureMeasurement.measurementType = _temperatureMeasurementType;
-  temperatureMeasurement.datetime = DateTime.formatUTC("%Y-%m-%d %H:%M:%S");
-  Serial.println(temperatureMeasurement.datetime);
+  temperatureMeasurement.measurementDatetime = DateTime.formatUTC("%Y-%m-%d %H:%M:%S");
+  String message = createMessage(_idDevice, _idChannel, _idIoTHub, temperatureMeasurement);
   mqttPostTemperature(_idIoTHub, _idDevice, _idChannel, message);
-  Serial.println(message);
   delay(5000);
 }

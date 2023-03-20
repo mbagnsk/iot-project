@@ -25,7 +25,7 @@ Used JSON data format:
 			"value": ...,
 			"units": ...,
 			"measurementType": ...,
-			"dateTime": ...
+			"measurementDateTime": ...
 		}
 	}
 }
