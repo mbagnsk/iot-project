@@ -6,10 +6,8 @@ Moreover it's plan to install data base on Raspberry Pi and store there sent dat
 Stored data would be used to generate raports or online visualization.
 
 TO DO:
-  - publish and subscribe infrastucture,
-  - visualization
-  - storing data,
-  - ...
+  - visualization,
+  - error handling
 
 ## JSON
 Used JSON data format:
@@ -23,7 +21,7 @@ Used JSON data format:
 		}
 		"measurement": {
 			"value": ...,
-			"units": ...,
+			"idUnit": ...,
 			"measurementType": ...,
 			"measurementDateTime": ...
 		}
@@ -71,7 +69,6 @@ topic: id_iothub/message_type/action_type/id_device/id_channel
 example: 1/measurements/temperature/1/1
 ```
 
-* topic for errors
 Subscriber(Raspberry Pi) of the topic gets all information that publicated on specified topic. 
 
 ## Raspberry Pi
@@ -125,7 +122,7 @@ and it's stored into:
 
 Database structure:
 
-![image](https://user-images.githubusercontent.com/56918406/226174441-f167ee10-1419-40db-ad9c-8d80be3e0a72.png)
+![image](https://user-images.githubusercontent.com/56918406/227036589-1f1763f6-6918-4237-9a28-5545b4747f0f.png)
 
 
 ## ESP8266
@@ -156,4 +153,3 @@ That allows to get all informations from all devices that publish data on topic 
 ```
 */measurements/temperature/*
 ```
-* topic for errors
