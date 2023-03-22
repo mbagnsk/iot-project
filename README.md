@@ -9,6 +9,25 @@ TO DO:
   - visualization,
   - error handling
 
+## Devices
+
+Devices used for infrastructure:
+  - Raspberry Pi 3b, 
+  - ESP8266.
+
+## Technologies
+
+Used technologies:
+  - Raspbian OS - Raspberry Pi operating system,
+  - Mosquitto - MQTT broker installed on Raspberry Pi,
+  - SQLite3 - database installed on Raspberry Pi,
+  - Python - installed on Raspberry Pi:
+    - database initialization,
+    - MQTT subscriber script.
+  - Arduino/C++:
+    - ESP8266 MQTT publisher program.
+  - JSON - mqtt messages sending in JSON format.
+
 ## JSON
 Used JSON data format:
 ```json
