@@ -9,10 +9,12 @@ TO DO:
   - visualization,
   - error handling
 
+## Data flow diagram
+
 ## Devices
 
 Devices used for infrastructure:
-  - Raspberry Pi 3b, 
+  - Raspberry Pi 3B, 
   - ESP8266.
 
 ## Technologies
