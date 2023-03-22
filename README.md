@@ -11,6 +11,9 @@ TO DO:
 
 ## Data flow diagram
 
+![image](https://user-images.githubusercontent.com/56918406/227041837-e90fe5dc-e534-43a1-ba76-1261e2ab8e37.png)
+
+
 ## Devices
 
 Devices used for infrastructure:
